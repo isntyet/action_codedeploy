@@ -10,6 +10,8 @@ JAR_PATH=$REPOSITORY/build/libs/$JAR_NAME
 # 기존 app kill
 sudo kill -9 `ps -ef | grep ${APP_NAME} | grep -v 'grep' | awk '{print $2}'`
 
-#java -jar $JAR_PATH
+sleep 15
+
+java -jar $JAR_PATH
 
 exit 0
