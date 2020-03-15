@@ -10,8 +10,10 @@ permissions:
     group: ubuntu
     mode: 755
 hooks:
+  # location은 프로젝트의 root경로를 기준
+  BeforeInstall:
+    - location:
   AfterInstall:
-    # location은 프로젝트의 root경로를 기준
     - location: deploy.sh
 
 
