@@ -7,11 +7,16 @@ APP_NAME=action_codedeploy
 JAR_NAME=$(ls $REPOSITORY/build/libs/ | grep '.jar' | tail -n 1)
 JAR_PATH=$REPOSITORY/build/libs/$JAR_NAME
 
-# 기존 app kill
-sudo kill -9 `ps -ef | grep ${APP_NAME} | grep -v 'grep' | awk '{print $2}'`
+CURRENT_PID=$(pgrep -f $APP_NAME)
 
-sleep 15
+if [ -z $CURRENT_PID ]
+then
+  echo "> 현재 구동중인 애플리케이션이 없으므로 종료하지 않습니다."
+else
+  echo "> kill -15 $CURRENT_PID"
+  kill -15 $CURRENT_PID
+  sleep 5
+fi
 
-java -jar $JAR_PATH
-
-exit 0
+echo "> $JAR_PATH 배포"
+nohup java -jar $JAR_PATH > /dev/null 2> /dev/null < /dev/null &
