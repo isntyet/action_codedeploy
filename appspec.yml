@@ -9,3 +9,7 @@ hooks:
   AfterInstall:
     # location은 프로젝트의 root경로를 기준
     - location: deploy.sh
+
+permissions:
+  - object: /opt/testapp
+    pattern: 775
